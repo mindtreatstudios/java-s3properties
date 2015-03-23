@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'idea'
+
+
+group = 'com.mts.tech'
+archivesBaseName = 's3properties'
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.amazonaws:aws-java-sdk-s3:1.9.11'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+}
+
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 's3properties'
+            from components.java
+            
+            artifact (sourceJar) { // (2)
+                classifier = 'sources'
+            }
+        }
+    }
+    
+    repositories {
+        maven {
+            url "$buildDir/repo"
+        }
+    }    
+}
+
+
+
+// (1)
+task sourceJar (type : Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}

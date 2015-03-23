@@ -1,0 +1,4 @@
+rootProject.name = 'S3PropertiesExample'
+
+include ':S3Properties'
+project(':S3Properties').projectDir = new File(settingsDir, '../S3Properties')
